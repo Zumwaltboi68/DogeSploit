@@ -13,28 +13,45 @@ ${doge_ascii}
 ${doge}Sploit: The Ethical Hacker's Toolbox
 ${reset}"
 
-# Install Prerequisites
-echo -e "${yellow}[*] Installing Prerequisites...${reset}"
-sudo apt-get update
-sudo apt-get install -y python3 python3-pip git
+# Define Functions
+function install_prerequisites() {
+    echo -e "${yellow}[*] Installing Prerequisites...${reset}"
+    sudo apt-get update
+    sudo apt-get install -y python3 python3-pip git
+}
 
-# Install Hacker Tools
-echo -e "${yellow}[*] Installing Hacker Tools...${reset}"
-pip3 install -r requirements.txt
+function install_hacker_tools() {
+    echo -e "${yellow}[*] Installing Hacker Tools...${reset}"
+    pip3 install -r requirements.txt
+}
 
-# Create DogeSploit Menu
-function menu() {
-    clear
-    echo -e "${yellow}[1] Nmap: Network Scanner${reset}"
-    echo -e "${yellow}[2] Wireshark: Network Protocol Analyzer${reset}"
-    echo -e "${yellow}[3] Metasploit: Penetration Testing Framework${reset}"
-    echo -e "${yellow}[4] John the Ripper: Password Cracker${reset}"
-    echo -e "${yellow}[5] Aircrack-ng: Wi-Fi Cracking Suite${reset}"
-    echo -e "${yellow}[6] Maltego: Open Source Intelligence Gathering Tool${reset}"
-    echo -e "${yellow}[7] Social Engineering Toolkit (SET): Phishing and Social Engineering Framework${reset}"
-    echo -e "${yellow}[8] Kali Linux: Penetration Testing Distribution${reset}"
+function create_menu() {
+    # Create an array of tool names and descriptions
+    tools=(
+        "Nmap: Network Scanner"
+        "Wireshark: Network Protocol Analyzer"
+        "Metasploit: Penetration Testing Framework"
+        "John the Ripper: Password Cracker"
+        "Aircrack-ng: Wi-Fi Cracking Suite"
+        "Maltego: Open Source Intelligence Gathering Tool"
+        "Social Engineering Toolkit (SET): Phishing and Social Engineering Framework"
+        "Kali Linux: Penetration Testing Distribution"
+    )
+
+    # Create a loop to generate the menu options
+    for i in "${!tools[@]}"; do
+        echo -e "${yellow}[$(($i + 1))] ${tools[$i]}${reset}"
+    done
+
+    # Add the exit option
     echo -e "${yellow}[0] Exit${reset}"
+}
+
+function handle_user_input() {
+    # Read the user's input
     read -p "Enter a number: " choice
+
+    # Use a case statement to handle the user's input
     case $choice in
         1) nmap ;;
         2) wireshark ;;
@@ -49,7 +66,6 @@ function menu() {
     esac
 }
 
-# Define Tool Functions
 function nmap() {
     echo -e "${yellow}[*] Starting Nmap...${reset}"
     nmap
@@ -92,7 +108,11 @@ function kali() {
     sudo kali-start
 }
 
-# Run DogeSploit Menu
+# Run DogeSploit
+install_prerequisites
+install_hacker_tools
 while true; do
-    menu
+    clear
+    create_menu
+    handle_user_input
 done
