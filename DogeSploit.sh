@@ -6,7 +6,7 @@ RED="\033[38;5;196m"
 YELLOW="\033[38;5;226m"
 
 # Print the DogeSploit banner
-echo -e "${YELLOW} DogeSploit v7.0 ${GREEN}"
+echo -e "${YELLOW} DogeSploit v8.0 ${GREEN}"
 echo -e "${YELLOW}  .-.    .-. .-.\\ ${GREEN}"
 echo -e "${YELLOW} /:;;.\  /:::::/ ${GREEN}"
 echo -e "${YELLOW}||:::/  |::::::/  ${GREEN}"
@@ -33,6 +33,9 @@ tools=(
     "Medusa"
     "Hydra"
     "Burp Suite"
+    "Crunch"
+    "Cupp"
+    "RockYou"
 )
 
 # Define an array of tool descriptions
@@ -55,6 +58,9 @@ descriptions=(
     "Remote access password cracker"
     "Network login cracker"
     "Web application security scanner"
+    "Wordlist generator"
+    "Password list generator"
+    "Common password list"
 )
 
 # Define an array of tool installation commands
@@ -77,6 +83,9 @@ commands=(
     "apt-get install medusa"
     "apt-get install hydra"
     "apt-get install burp-suite"
+    "apt-get install crunch"
+    "apt-get install cupp"
+    "wget https://github.com/danielmiessler/SecLists/archive/master.zip; unzip master.zip; mv SecLists-master RockYou"
 )
 
 # Define an array of additional features
