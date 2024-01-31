@@ -74,6 +74,9 @@ rm -rf $tmp_dir
 # Display a success message
 echo -e "\e[32m[!] Installation complete. DogeSploit is now ready to use."
 
+# Start the graphical user interface
+dogeSploit-gui
+
 # Print usage instructions
 echo -e "\e[93mUsage: ./dogeSploit.sh"
 echo -e "\tAvailable commands:"
@@ -85,6 +88,11 @@ echo -e "\t\tjohn: Launch John the Ripper"
 echo -e "\t\taircrack-ng: Launch Aircrack-ng"
 echo -e "\t\thashcat: Launch Hashcat"
 echo -e "\t\maltego: Launch Maltego"
+echo -e "\t\tvulnerability_scanner: Launch vulnerability scanner"
+echo -e "\t\tpassword_cracker: Launch password cracker"
+echo -e "\t\treporting: Generate a report"
+echo -e "\t\tupdate: Update installed tools"
+echo -e "\t\tinstall_custom: Install a custom tool"
 echo -e "\t\thelp: Display this help message"
 echo -e "\t\texit: Exit DogeSploit"
 
@@ -118,6 +126,41 @@ while true; do
     "maltego")
       maltego
       ;;
+    "vulnerability_scanner")
+      vulnerability_scanner
+      ;;
+    "password_cracker")
+      password_cracker
+      ;;
+    "reporting")
+      reporting
+      ;;
+    "update")
+      echo -e "\e[32m[*] Updating tools..."
+
+      for tool in tools/*; do
+        tool_name=$(basename $tool)
+
+        # Update the tool
+        (
+          cd $tool
+          ./update.sh &> /dev/null
+        )
+      done
+
+      echo -e "\e[32m[!] Tools updated successfully."
+      ;;
+    "install_custom")
+      echo -e "\e[32m[*] Installing custom tool..."
+
+      read -p "Enter the name of the tool: " tool_name
+      read -p "Enter the URL of the tool: " tool_url
+
+      # Download the tool
+      curl -s $tool_url | tar -xjvf - -C tools/$tool_name
+
+      echo -e "\e[32m[!] Custom tool installed successfully."
+      ;;
     "help")
       echo -e "\e[93mUsage: ./dogeSploit.sh"
       echo -e "\tAvailable commands:"
@@ -129,6 +172,11 @@ while true; do
       echo -e "\t\taircrack-ng: Launch Aircrack-ng"
       echo -e "\t\thashcat: Launch Hashcat"
       echo -e "\t\maltego: Launch Maltego"
+      echo -e "\t\tvulnerability_scanner: Launch vulnerability scanner"
+      echo -e "\t\tpassword_cracker: Launch password cracker"
+      echo -e "\t\treporting: Generate a report"
+      echo -e "\t\tupdate: Update installed tools"
+      echo -e "\t\tinstall_custom: Install a custom tool"
       echo -e "\t\thelp: Display this help message"
       echo -e "\t\texit: Exit DogeSploit"
       ;;
