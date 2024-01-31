@@ -1,114 +1,109 @@
-#!/bin/ bash
+#!/bin/bash
 
-# Set Constants
-doge="Doge"
-doge_ascii=$(wget -q -O - https://ascii.dog/woof | head -n 13 | tail -n 12)
+# Define colors
+GREEN="\033[38;5;82m"
+RED="\033[38;5;196m"
+YELLOW="\033[38;5;226m"
 
-# Create DogeSploit Banner
-clear
-echo -e "\033[38;5;226m"
-echo -e "${doge_ascii}\n"
-echo -e "${doge}Sploit: The Ethical Hacker's Toolbox\n"
-echo -e "\033[0m"
+# Print the DogeSploit banner
+echo -e "${YELLOW} DogeSploit v4.0 ${GREEN}"
+echo -e "${YELLOW}  .-.    .-. .-.\\ ${GREEN}"
+echo -e "${YELLOW} /:;;.\  /:::::/ ${GREEN}"
+echo -e "${YELLOW}||:::/  |::::::/  ${GREEN}"
+echo -e "${YELLOW}||:::/   |:::::/   ${GREEN}"
+echo -e "${YELLOW} `--`     `--`     ${GREEN}"
 
-# Define Colors
-red="\033[38;5;196m"
-green="\033[38;5;82m"
-blue="\033[38;5;39m"
-reset="\033[0m"
-
-# Define Hacker 工具
-hacker_programs=(
-    "nmap"
-    "wireshark"
-    "msfconsole"
-    "maltego"
-    "aircrack-ng"
-    "setoolkit"
-    "kali-Linux"
+# Define an array of tools
+tools=(
+    "Nmap"
+    "Wireshark"
+    "Metasploit"
+    "John the Ripper"
+    "Aircrack-ng"
+    "Maltego"
+    "Social Engineering Toolkit (SET)"
+    "Exploit Database (EDB)"
+    "Vulners"
+    "Nessus"
+    "OpenVAS"
+    "OWASP ZAP"
+    "Kali Linux"
+    "Parrot OS"
+    "Hashcat"
+    "Medusa"
+    "Hydra"
+    "Burp Suite"
 )
 
-# Define Dependencies
-prerequisites=(
-    "git"
-    "python3"
-    "pip3"
+# Define an array of tool descriptions
+descriptions=(
+    "Network scanner"
+    "Network protocol analyzer"
+    "Penetration testing framework"
+    "Password cracker"
+    "Wireless network auditing and cracking tool"
+    "Open source intelligence (OSINT) tool"
+    "Social engineering toolkit"
+    "Database of exploits"
+    "Vulnerability scanner"
+    "Vulnerability assessment and management tool"
+    "Open source vulnerability scanner"
+    "Web application security scanner"
+    "Linux distribution for penetration testing"
+    "Linux distribution for security and privacy"
+    "Advanced password cracker"
+    "Remote access password cracker"
+    "Network login cracker"
+    "Web application security scanner"
 )
 
-# Install Dependencies
-function install_dependenc() {
-    for program in "${prerequisites[@]}"
-    do
-        if ! command -v "$program" &> /dev/null; then
-            echo -e "${red}[!] ${program} not found. Installing...${reset} "
-            if ! sudo yum install -y "$program" &> /dev/null; then
-                echo -e "${red}[!] Error installing ${program}. Please install it maually.${reset} "
-                exit 1
-            fi
-        fi
-    done
-}
+# Define an array of tool installation commands
+commands=(
+    "apt-get install nmap"
+    "apt-get install wireshark"
+    "apt-get install metasploit-framework"
+    "apt-get install john"
+    "apt-get install aircrack-ng"
+    "apt-get install maltego"
+    "apt-get install setoolkit"
+    "apt-get install exploitdb"
+    "apt-get install vulners"
+    "apt-get install nessus"
+    "apt-get install openvas"
+    "apt-get install owasp-zap"
+    "echo -e \"Installing Kali Linux. This may take some time.\"; wget https://cdimage.kali.org/kali-2023.3/kali-linux-2023.3-installer-amd64.iso; sudo dd bs=4M if=kali-linux-2023.3-installer-amd64.iso of=/dev/sdb; sudo reboot"
+    "echo -e \"Installing Parrot OS. This may take some time.\"; wget https://dl.parrotsec.org/iso/parrot-sec-5.3.0-amd64.iso; sudo dd bs=4M if=parrot-sec-5.3.0-amd64.iso of=/dev/sdb; sudo reboot"
+    "apt-get install hashcat"
+    "apt-get install medusa"
+    "apt-get install hydra"
+    "apt-get install burp-suite"
+)
 
-# Install Hacker 工具
-function install_hacker_programs() {
-    for program in "${hacker_programs[@]}"
-    do
-        if ! command -v "$program" &> /dev/null; then
-            echo -e "${red}[!] ${program} not found. Installing...${reset} "
-            if ! sudo pip3 install "$program" &> /dev/null; then
-                echo -e "${red}[!] Error installing ${program}. Please install it maually.${reset} "
-                exit 1
-            fi
-        fi
-    done
-}
-
-# Create Menu
-function create_menu() {
-    clear
-    echo -e "${doge_ascii}\n"
-    echo -e "${doge}Sploit: The Ethical Hacker's Toolbox\n"
-    echo -e "${blue}[1] Nmap: Network Mapper${reset} "
-    echo -e "${blue}[2] Wireshark: Network Protocol Analyzer${reset} "
-    echo -e "${blue}[3] MSFconsole: Metaspoit Framework Console${reset} "
-    echo -e "${blue}[4] Maltego: Open Source Information Gathering${reset} "
-    echo -e "${blue}[5] Aircrack-ng: Wi-Fi Cracking and Security Auditing${reset} "
-    echo -e "${blue}[6] Setoolkit: Social Engineering Toolkit${reset} "
-    echo -e "${blue}[7] Kali-Linux: Penetration testing distribution${reset} "
-    echo -e "${blue}[0] Exit${reset} "
-    echo -n " Enter your choice: "
-}
-
-# Run Selected Program
-function run_program() {
-    case $1 in
-        1) nmap ;;
-        2) wireshark ;;
-        3) msfconsole ;;
-        4) maltego ;;
-        5) aircrack-ng ;;
-        6) setoolkit ;;
-        7) startkali ;;
-        0) exit 0 ;;
-        *) echo -e "${red}[!] Invalid choice. Please enter a valid number.${reset} ";;
+# Print the menu of tools
+PS3='Enter your choice: '
+select tool in "Install All Tools" "${tools[@]}" "Exit"; do
+    case $tool in
+        "Install All Tools")
+            for command in "${commands[@]}"; do
+                eval $command
+            done
+            echo -e "${GREEN}All tools installed successfully.${YELLOW}"
+            break
+            ;;
+        "${tools[@]}")
+            index=$(($REPLY - 2))
+            eval ${commands[$index]}
+            echo -e "${GREEN}${tools[$index]} installed successfully.${YELLOW}"
+            break
+            ;;
+        "Exit")
+            exit 0
+            ;;
+        *)
+            echo -e "${RED}Invalid choice.${YELLOW}"
+            ;;
     esac
-}
+done
 
-# Main Function
-function main() {
-    # Install dependencies
-    install_dependenc
-
-    # Install hacker programs
-    install_hacker_programs
-
-    # Create menu
-    while true; do
-        create_menu
-        read choice
-        run_program $chocie
-    done
-}
-
-# Run Main Function
-main
+# Exit the script
+exit 0
