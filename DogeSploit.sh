@@ -1,118 +1,114 @@
-#!/bin/bash
+#!/bin/ bash
 
-# Set Variables
+# Set Constants
 doge="Doge"
-doge_ascii=$(curl -s https://ascii.dog/woof | head -n 13 | tail -n 12)
-yellow=$(tput setaf 3)
-reset=$(tput sgr0)
+doge_ascii=$(wget -q -O - https://ascii.dog/woof | head -n 13 | tail -n 12)
 
 # Create DogeSploit Banner
 clear
-echo -e "${yellow}
-${doge_ascii}
-${doge}Sploit: The Ethical Hacker's Toolbox
-${reset}"
+echo -e "\033[38;5;226m"
+echo -e "${doge_ascii}\n"
+echo -e "${doge}Sploit: The Ethical Hacker's Toolbox\n"
+echo -e "\033[0m"
 
-# Define Functions
-function install_prerequisites() {
-    echo -e "${yellow}[*] Installing Prerequisites...${reset}"
-    sudo apt-get update
-    sudo apt-get install -y python3 python3-pip git
-}
+# Define Colors
+red="\033[38;5;196m"
+green="\033[38;5;82m"
+blue="\033[38;5;39m"
+reset="\033[0m"
 
-function install_hacker_tools() {
-    echo -e "${yellow}[*] Installing Hacker Tools...${reset}"
-    pip3 install -r requirements.txt
-}
+# Define Hacker 工具
+hacker_programs=(
+    "nmap"
+    "wireshark"
+    "msfconsole"
+    "maltego"
+    "aircrack-ng"
+    "setoolkit"
+    "kali-Linux"
+)
 
-function create_menu() {
-    # Create an array of tool names and descriptions
-    tools=(
-        "Nmap: Network Scanner"
-        "Wireshark: Network Protocol Analyzer"
-        "Metasploit: Penetration Testing Framework"
-        "John the Ripper: Password Cracker"
-        "Aircrack-ng: Wi-Fi Cracking Suite"
-        "Maltego: Open Source Intelligence Gathering Tool"
-        "Social Engineering Toolkit (SET): Phishing and Social Engineering Framework"
-        "Kali Linux: Penetration Testing Distribution"
-    )
+# Define Dependencies
+prerequisites=(
+    "git"
+    "python3"
+    "pip3"
+)
 
-    # Create a loop to generate the menu options
-    for i in "${!tools[@]}"; do
-        echo -e "${yellow}[$(($i + 1))] ${tools[$i]}${reset}"
+# Install Dependencies
+function install_dependenc() {
+    for program in "${prerequisites[@]}"
+    do
+        if ! command -v "$program" &> /dev/null; then
+            echo -e "${red}[!] ${program} not found. Installing...${reset} "
+            if ! sudo yum install -y "$program" &> /dev/null; then
+                echo -e "${red}[!] Error installing ${program}. Please install it maually.${reset} "
+                exit 1
+            fi
+        fi
     done
-
-    # Add the exit option
-    echo -e "${yellow}[0] Exit${reset}"
 }
 
-function handle_user_input() {
-    # Read the user's input
-    read -p "Enter a number: " choice
+# Install Hacker 工具
+function install_hacker_programs() {
+    for program in "${hacker_programs[@]}"
+    do
+        if ! command -v "$program" &> /dev/null; then
+            echo -e "${red}[!] ${program} not found. Installing...${reset} "
+            if ! sudo pip3 install "$program" &> /dev/null; then
+                echo -e "${red}[!] Error installing ${program}. Please install it maually.${reset} "
+                exit 1
+            fi
+        fi
+    done
+}
 
-    # Use a case statement to handle the user's input
-    case $choice in
+# Create Menu
+function create_menu() {
+    clear
+    echo -e "${doge_ascii}\n"
+    echo -e "${doge}Sploit: The Ethical Hacker's Toolbox\n"
+    echo -e "${blue}[1] Nmap: Network Mapper${reset} "
+    echo -e "${blue}[2] Wireshark: Network Protocol Analyzer${reset} "
+    echo -e "${blue}[3] MSFconsole: Metaspoit Framework Console${reset} "
+    echo -e "${blue}[4] Maltego: Open Source Information Gathering${reset} "
+    echo -e "${blue}[5] Aircrack-ng: Wi-Fi Cracking and Security Auditing${reset} "
+    echo -e "${blue}[6] Setoolkit: Social Engineering Toolkit${reset} "
+    echo -e "${blue}[7] Kali-Linux: Penetration testing distribution${reset} "
+    echo -e "${blue}[0] Exit${reset} "
+    echo -n " Enter your choice: "
+}
+
+# Run Selected Program
+function run_program() {
+    case $1 in
         1) nmap ;;
         2) wireshark ;;
         3) msfconsole ;;
-        4) john ;;
+        4) maltego ;;
         5) aircrack-ng ;;
-        6)maltego ;;
-        7) set ;;
-        8) kali ;;
+        6) setoolkit ;;
+        7) startkali ;;
         0) exit 0 ;;
-        *) echo -e "${yellow}Invalid choice. Please enter a valid number.${reset}";;
+        *) echo -e "${red}[!] Invalid choice. Please enter a valid number.${reset} ";;
     esac
 }
 
-function nmap() {
-    echo -e "${yellow}[*] Starting Nmap...${reset}"
-    nmap
-    echo -e "${yellow}[*] Nmap scan completed. Press any key to continue...${reset}"
-    read -s -n 1
+# Main Function
+function main() {
+    # Install dependencies
+    install_dependenc
+
+    # Install hacker programs
+    install_hacker_programs
+
+    # Create menu
+    while true; do
+        create_menu
+        read choice
+        run_program $chocie
+    done
 }
 
-function wireshark() {
-    echo -e "${yellow}[*] Starting Wireshark...${reset}"
-    wireshark
-}
-
-function msfconsole() {
-    echo -e "${yellow}[*] Starting Metasploit...${reset}"
-    msfconsole
-}
-
-function john() {
-    echo -e "${yellow}[*] Starting John the Ripper...${reset}"
-    john
-}
-
-function aircrack-ng() {
-    echo -e "${yellow}[*] Starting Aircrack-ng...${reset}"
-    aircrack-ng
-}
-
-function maltego() {
-    echo -e "${yellow}[*] Starting Maltego...${reset}"
-    maltego
-}
-
-function set() {
-    echo -e "${yellow}[*] Starting Social Engineering Toolkit...${reset}"
-    set
-}
-
-function kali() {
-    echo -e "${yellow}[*] Starting Kali Linux...${reset}"
-    sudo kali-start
-}
-
-# Run DogeSploit
-install_prerequisites
-install_hacker_tools
-while true; do
-    clear
-    create_menu
-    handle_user_input
-done
+# Run Main Function
+main
