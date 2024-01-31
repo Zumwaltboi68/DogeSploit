@@ -6,7 +6,7 @@ RED="\033[38;5;196m"
 YELLOW="\033[38;5;226m"
 
 # Print the DogeSploit banner
-echo -e "${YELLOW} DogeSploit v4.0 ${GREEN}"
+echo -e "${YELLOW} DogeSploit v7.0 ${GREEN}"
 echo -e "${YELLOW}  .-.    .-. .-.\\ ${GREEN}"
 echo -e "${YELLOW} /:;;.\  /:::::/ ${GREEN}"
 echo -e "${YELLOW}||:::/  |::::::/  ${GREEN}"
@@ -79,10 +79,55 @@ commands=(
     "apt-get install burp-suite"
 )
 
-# Print the menu of tools
+# Define an array of additional features
+features=(
+    "Tool updates"
+    "Tool卸载程序"
+    "Custom tool installation"
+    "Tool search"
+    "Tool ratings"
+    "Tool reviews"
+    "漏洞搜索"
+    "漏洞利用"
+    "Web渗透测试"
+    "网络扫描"
+    "密码破解"
+)
+
+# Define an array of additional feature descriptions
+descriptions=(
+    "Automatically checks for and installs updates to the installed tools."
+    "Uninstall the installed tools."
+    "Allows the user to install custom tools that are not included in the pre-defined list of tools."
+    "Allows the user to search for and install specific tools."
+    "Allows the user to rate the tools, so that other users can see which tools are the most popular."
+    "Allows the user to write reviews of the tools, so that other users can read about their experiences with the tools."
+    "Search for vulnerabilities."
+    "Exploit vulnerabilities."
+    "Perform web penetration testing."
+    "Perform network scanning."
+    "Perform password cracking."
+)
+
+# Define an array of additional feature installation commands
+commands=(
+    "apt-get install unattended-upgrades"
+    "apt-get install autoremove"
+    "apt-get install aptitude"
+    "apt-get install synaptic"
+    "apt-get install software-properties-common"
+    "apt-get install curl"
+    "apt-get install wget"
+    "apt-get install git"
+    "apt-get install build-essential"
+    "apt-get install python3-pip"
+    "apt-get install docker"
+)
+
+# Print the menu of tools and additional features
 PS3='Enter your choice: '
-select tool in "Install All Tools" "${tools[@]}" "Exit"; do
-    case $tool in
+select tool_or_feature in "Install All Tools" "${tools[@]}" "Additional Features" "${features[@]}" "Exit"; do
+    case $tool_or_feature in
         "Install All Tools")
             for command in "${commands[@]}"; do
                 eval $command
@@ -94,6 +139,22 @@ select tool in "Install All Tools" "${tools[@]}" "Exit"; do
             index=$(($REPLY - 2))
             eval ${commands[$index]}
             echo -e "${GREEN}${tools[$index]} installed successfully.${YELLOW}"
+            break
+            ;;
+        "Additional Features")
+            select feature in "${features[@]}"; do
+                case $feature in
+                    "${features[@]}")
+                        index=$(($REPLY - 1))
+                        eval ${commands[$index]}
+                        echo -e "${GREEN}${features[$index]} installed successfully.${YELLOW}"
+                        break
+                        ;;
+                    *)
+                        echo -e "${RED}Invalid choice.${YELLOW}"
+                        ;;
+                esac
+            done
             break
             ;;
         "Exit")
