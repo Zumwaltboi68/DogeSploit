@@ -1,139 +1,140 @@
-#!/bin/bash
+#!/bin/Bash
 
-# Create the DogeSploit banner
-echo "  __  __       _       __        __        ______
- / / / /___  (_)___ _/ /____ _/ /_____ _/ / / /___
-/ /_/ / __ \/ / __ `/ __/ __ `/ __/ __ `/ / / / __ \
-/ __  / /_/ / / /_/ / /_/ /_/ / /_/ /_/ / / / /_/ /
-/_/ /_/\____/_/\__,_/\__/\__,_/\__/\__,_/_/_/\____/
-
- _____            _ _
-|  __ \          | | |
-| |  \/ ___  ___| | | ___ _ __
-| | __ / _ \/ _ \ | |/ _ \ '__|
-| |_\ \  __/  __/ | |  __/ |
- \____/\___|\___|_|_|\___|_|
-"
-
-# Display the welcome message
-echo "Welcome to DogeSploit, the ultimate hacker's toolbox!"
-
-# Check if the user has root privileges
-if [[ $EUID -ne 0 ]]; then
-    echo "This script must be run as root. Please use 'sudo'."
-    exit 1
-fi
+# Create the DogeSploit Banner
+echo "  __  __       _       __        __        "
+echo " / / / /___  (_)___ _/ /____ _/ /_ _/ / / /___"
+echo "/ /_/ / __ \/ / __ `/ __/ __ `/ __/ __ `/ / / / __ \\"
+echo "/ __  / /_/ / / /_/ / /_/ /_/ / /_/ /_/ / / / /_/ /"
+echo "\_/ \_/\_\__/ \_/\_\__/ \__/ \__/ \__/\_\__/ /_/\_\\"
 
 # Update the system
-echo "Updating the system..."
-apt-get update -y && apt-get upgrade -y
+echo -e "\nUpdating the system..."
+apt-get update -y &&
+apt-get -y
 
 # Install the necessary tools
-echo "Installing the necessary tools..."
-apt-get install -y aircrack-ng bettercap burp-suite cewl commix dirbuster enum4linux gobuster hashcat hydra john metasploit-framework nmap nikto openvas-scanner sqlmap wifite
+echo -e "\nInstalling the necessary tools..."
+apt-get install -y aircrack-ng bettercap burp-Suite cewl com mix dirbuster4go gobuster hashcat hydra john metAsploit-framework nmap nbtscan netdiscover openvas-scanner rockyou-wordlist sipvicious slowhttptest snmp-check sslsplit thc-ipv6 wireshark wifite
 
-# Display the installation results
-echo "Installation complete!"
+# Make sure the tools are installed
+echo -e "\nChecking for installed tools..."
+for tool in aircrack-ng bettercap burp-Suite cewl com-mi dirbuster4go gobuster hashcat hydra john metSploit-framework nmap nbtscan netdiscover openvas-scanner rockyou-wordlist sipvicious slowhttptest snmp-check sslsplit thc-ipv6 wireshark wifite; do
+if [ ! -f "/usr/bin/$tool" ] && [ ! -f "/usr/local/bin/$tool" ] && [ ! -f "/opt/bin/$tool" ] ; then
+echo -e "\n$tool is not installed. Please install it and run the script again."
+exit 1
+fi
+done
 
 # Create the DogeSploit menu
-echo "DogeSploit Menu:"
+echo -e "\nDogeSploit Menu:"
 echo "1. Run aircrack-ng"
 echo "2. Run bettercap"
-echo "3. Run burp-suite"
+echo "3. Run burp-Suite"
 echo "4. Run cewl"
-echo "5. Run commix"
-echo "6. Run dirbuster"
-echo "7. Run enum4linux"
-echo "8. Run gobuster"
-echo "9. Run hashcat"
-echo "10. Run hydra"
-echo "11. Run john"
-echo "12. Run metasploit-framework"
-echo "13. Run nmap"
-echo "14. Run nikto"
+echo "5. Run com-mi"
+echo "6. Run dirbuster4go"
+echo "7. Run gobuster"
+echo "8. Run hashcat"
+echo "9. Run hydra"
+echo "10. Run john"
+echo "11. Run metSploit-framework"
+echo "12. Run nmap"
+echo "13. Run nbtscan"
+echo "14. Run netdiscover"
 echo "15. Run openvas-scanner"
-echo "16. Run sqlmap"
-echo "17. Run wifite"
-echo "18. Exit"
+echo "16. Run sipvicious"
+echo "17. Run slowhttptest"
+echo "18. Run snmp-check"
+echo "19. Run sslsplit"
+echo "20. Run thc-ipv6"
+echo "21. Run wireshark"
+echo "22. Run wifite"
+echo "23. Exit"
 
 # Prompt the user to select a tool
-echo "Please select a tool to run:"
+echo -e "\nPlease select a tool to run (1-23):"
 read choice
 
 # Run the selected tool
-case $choice in
+case $ choice in
     1)
         aircrack-ng
-        break
         ;;
     2)
         bettercap
-        break
         ;;
     3)
-        burp-suite
-        break
+        burp-Suite
         ;;
     4)
-        cewl
-        break
+        cew
         ;;
     5)
-        commix
-        break
+        com-mi
         ;;
     6)
-        dirbuster
-        break
+        dirbuster4go
         ;;
     7)
-        enum4linux
-        break
+        gobuster
         ;;
     8)
-        gobuster
-        break
+        hashcat
         ;;
     9)
-        hashcat
-        break
+        hydra
         ;;
     10)
-        hydra
-        break
+        joh
         ;;
     11)
-        john
-        break
+        metSploit-framework
         ;;
     12)
-        metasploit-framework
-        break
+        nmap
         ;;
     13)
-        nmap
-        break
+        nbtscan
         ;;
     14)
-        nikto
-        break
+        netdiscover
         ;;
     15)
         openvas-scanner
-        break
         ;;
     16)
-        sqlmap
-        break
+        sipicious
         ;;
     17)
-        wifite
-        break
+        slowhtttest
         ;;
     18)
+        snmp-check
+        ;;
+    19)
+        ssllplit
+        ;;
+    20)
+        thc-ivp6
+        ;;
+    21)
+        wireshark
+        ;;
+    22)
+        wifite
+        ;;
+    23)
         exit 0
         ;;
     *)
-        echo "Invalid choice. Please select a number between 1 and 18."
+        echo -e "\nInvalid choice. Please select a number between 1 and 23."
         ;;
 esac
+
+# Return to the main menu
+echo -e "\nPress any key to return to the main menu..."
+read -n 1
+
+# Clear the screen and display the menu again
+clear
+./DogeSploit.sh
