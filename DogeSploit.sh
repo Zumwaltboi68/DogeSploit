@@ -1,191 +1,139 @@
 #!/bin/bash
 
-# DogeSploit: The Ultimate Hacker's Toolbox
+# Create the DogeSploit banner
+echo "  __  __       _       __        __        ______
+ / / / /___  (_)___ _/ /____ _/ /_____ _/ / / /___
+/ /_/ / __ \/ / __ `/ __/ __ `/ __/ __ `/ / / / __ \
+/ __  / /_/ / / /_/ / /_/ /_/ / /_/ /_/ / / / /_/ /
+/_/ /_/\____/_/\__,_/\__/\__,_/\__/\__,_/_/_/\____/
 
-# Display a visually appealing ASCII art banner
-echo -e "\e[33m    ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄   ▄▄▄▄▄▄▄▄▄▄▄  ▄████████"
-echo -e "\e[33m  ▐░░░░░░░░░░░░░░▌▐░░░░░░░░░░░░▌▐░░░░░░░░░░░░▌▐█▀▌▀▄▄▄▄"
-echo -e "\e[33m  ▐░█▀▀▀▀▀▀▀▀▀▀▀░▌▐░█▀▀▀▀▀▀▀▀▀▀░▌▐░█▀▀▀▀▀▀▀▀▀▀░▌▀▀▄▄▄▀▀▀"
-echo -e "\e[33m  ▐█▄▄▄▄▄▄▄▄▄▄▄▄▄█▌▐█▄▄▄▄▄▄▄▄▄▄▄▄█▌▐█▄▄▄▄▄▄▄▄▄▄▄▄█▌▀▀▀▀▀▄▄"
-echo -e "\e[33m  ▐█░░░░░░░░░░░░░░█▌▐█░░░░░░░░░░░░█▌▐█░░░░░░░░░░░░█▌▀▄▄▄▀▀"
-echo -e "\e[33m  ▐█░░░░░░░░░░░░░░█▌▐█░░░░░░░░░░░░█▌▐█░░░░░░░░░░░░█▌▀▄▀▄▄▄"
-echo -e "\e[33m  ▐█░░░░░░░░░░░░░░█▌▐█░░░░░░░░░░░░█▌▐█░░░░░░░░░░░░█▌▀▄▄▄▀▀"
-echo -e "\e[33m  ▐█▄▄▄▄▄▄▄▄▄▄▄▄▄█▌▐█▄▄▄▄▄▄▄▄▄▄▄▄█▌▐█▄▄▄▄▄▄▄▄▄▄▄▄█▌▀▄▄▄▀▀\n"
-echo -e "\e[93m _        _   _       ____   ____  "
-echo -e "\e[93m| |      | | | |     |  _ \ / __ \ "
-echo -e "\e[93m| |  __ _| | | | ___ | |_) | |  | |"
-echo -e "\e[93m| | / _` | | | |/ _ \|  _ <| |  | |"
-echo -e "\e[93m| || (_| | |_| | (_) | |_) | |__| |"
-echo -e "\e[93m|_| \__,_|\__,_|\___/|____/ \____/ "
+ _____            _ _
+|  __ \          | | |
+| |  \/ ___  ___| | | ___ _ __
+| | __ / _ \/ _ \ | |/ _ \ '__|
+| |_\ \  __/  __/ | |  __/ |
+ \____/\___|\___|_|_|\___|_|
+"
 
-# Check if the user is running the script as root
-if [ "$(id -u)" != "0" ]; then
-  echo -e "\e[31m[!] This script must be run as root. Please use 'sudo'."
-  exit 1
+# Display the welcome message
+echo "Welcome to DogeSploit, the ultimate hacker's toolbox!"
+
+# Check if the user has root privileges
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root. Please use 'sudo'."
+    exit 1
 fi
 
-# Create a temporary directory for the tools
-tmp_dir=$(mktemp -d)
+# Update the system
+echo "Updating the system..."
+apt-get update -y && apt-get upgrade -y
 
-# Download and install the tools
-echo -e "\e[32m[*] Downloading and installing tools..."
+# Install the necessary tools
+echo "Installing the necessary tools..."
+apt-get install -y aircrack-ng bettercap burp-suite cewl commix dirbuster enum4linux gobuster hashcat hydra john metasploit-framework nmap nikto openvas-scanner sqlmap wifite
 
-# Initialize progress bar
-progress_bar() {
-  local width=50
-  local progress=$1
-  local done
+# Display the installation results
+echo "Installation complete!"
 
-  done=$(printf %.2f $progress)
-  [ $done -ge 1 ] && done=1
+# Create the DogeSploit menu
+echo "DogeSploit Menu:"
+echo "1. Run aircrack-ng"
+echo "2. Run bettercap"
+echo "3. Run burp-suite"
+echo "4. Run cewl"
+echo "5. Run commix"
+echo "6. Run dirbuster"
+echo "7. Run enum4linux"
+echo "8. Run gobuster"
+echo "9. Run hashcat"
+echo "10. Run hydra"
+echo "11. Run john"
+echo "12. Run metasploit-framework"
+echo "13. Run nmap"
+echo "14. Run nikto"
+echo "15. Run openvas-scanner"
+echo "16. Run sqlmap"
+echo "17. Run wifite"
+echo "18. Exit"
 
-  clear
-  printf "\e[K\r[%-${width}s]%3d%%" "=" $(( 100 * $done ))
-  printf "\e[K"
-}
+# Prompt the user to select a tool
+echo "Please select a tool to run:"
+read choice
 
-tool_count=$(find tools -maxdepth 1 -type d | wc -l)
-index=1
-
-for tool in tools/*; do
-  tool_name=$(basename $tool)
-
-  # Check if the tool is already installed
-  if ! command -v $tool_name &> /dev/null; then
-    echo -e "\e[32m[*] Installing $tool_name..."
-
-    # Install the tool
-    (
-      cd $tool
-      ./install.sh &> /dev/null
-    )
-
-    # Update the progress bar
-    progress_bar $(( 100 * $index / $tool_count ))
-    index=$((index + 1))
-  else
-    echo -e "\e[33m[*] $tool_name is already installed."
-  fi
-done
-
-# Clean up the temporary directory
-rm -rf $tmp_dir
-
-# Display a success message
-echo -e "\e[32m[!] Installation complete. DogeSploit is now ready to use."
-
-# Start the graphical user interface
-dogeSploit-gui
-
-# Print usage instructions
-echo -e "\e[93mUsage: ./dogeSploit.sh"
-echo -e "\tAvailable commands:"
-echo -e "\t\tnmap: Launch Nmap"
-echo -e "\t\twireshark: Launch Wireshark"
-echo -e "\t\tmsfconsole: Launch Metasploit Framework console"
-echo -e "\t\tset: Launch Social Engineering Toolkit"
-echo -e "\t\tjohn: Launch John the Ripper"
-echo -e "\t\taircrack-ng: Launch Aircrack-ng"
-echo -e "\t\thashcat: Launch Hashcat"
-echo -e "\t\maltego: Launch Maltego"
-echo -e "\t\tvulnerability_scanner: Launch vulnerability scanner"
-echo -e "\t\tpassword_cracker: Launch password cracker"
-echo -e "\t\treporting: Generate a report"
-echo -e "\t\tupdate: Update installed tools"
-echo -e "\t\tinstall_custom: Install a custom tool"
-echo -e "\t\thelp: Display this help message"
-echo -e "\t\texit: Exit DogeSploit"
-
-# Start the interactive shell
-while true; do
-  echo -e "\e[93mDogeSploit> "
-  read command
-
-  case $command in
-    "nmap")
-      nmap
-      ;;
-    "wireshark")
-      wireshark
-      ;;
-    "msfconsole")
-      msfconsole
-      ;;
-    "set")
-      set
-      ;;
-    "john")
-      john
-      ;;
-    "aircrack-ng")
-      aircrack-ng
-      ;;
-    "hashcat")
-      hashcat
-      ;;
-    "maltego")
-      maltego
-      ;;
-    "vulnerability_scanner")
-      vulnerability_scanner
-      ;;
-    "password_cracker")
-      password_cracker
-      ;;
-    "reporting")
-      reporting
-      ;;
-    "update")
-      echo -e "\e[32m[*] Updating tools..."
-
-      for tool in tools/*; do
-        tool_name=$(basename $tool)
-
-        # Update the tool
-        (
-          cd $tool
-          ./update.sh &> /dev/null
-        )
-      done
-
-      echo -e "\e[32m[!] Tools updated successfully."
-      ;;
-    "install_custom")
-      echo -e "\e[32m[*] Installing custom tool..."
-
-      read -p "Enter the name of the tool: " tool_name
-      read -p "Enter the URL of the tool: " tool_url
-
-      # Download the tool
-      curl -s $tool_url | tar -xjvf - -C tools/$tool_name
-
-      echo -e "\e[32m[!] Custom tool installed successfully."
-      ;;
-    "help")
-      echo -e "\e[93mUsage: ./dogeSploit.sh"
-      echo -e "\tAvailable commands:"
-      echo -e "\t\tnmap: Launch Nmap"
-      echo -e "\t\twireshark: Launch Wireshark"
-      echo -e "\t\tmsfconsole: Launch Metasploit Framework console"
-      echo -e "\t\tset: Launch Social Engineering Toolkit"
-      echo -e "\t\tjohn: Launch John the Ripper"
-      echo -e "\t\taircrack-ng: Launch Aircrack-ng"
-      echo -e "\t\thashcat: Launch Hashcat"
-      echo -e "\t\maltego: Launch Maltego"
-      echo -e "\t\tvulnerability_scanner: Launch vulnerability scanner"
-      echo -e "\t\tpassword_cracker: Launch password cracker"
-      echo -e "\t\treporting: Generate a report"
-      echo -e "\t\tupdate: Update installed tools"
-      echo -e "\t\tinstall_custom: Install a custom tool"
-      echo -e "\t\thelp: Display this help message"
-      echo -e "\t\texit: Exit DogeSploit"
-      ;;
-    "exit")
-      echo -e "\e[31m[!] Exiting DogeSploit."
-      exit 0
-      ;;
+# Run the selected tool
+case $choice in
+    1)
+        aircrack-ng
+        break
+        ;;
+    2)
+        bettercap
+        break
+        ;;
+    3)
+        burp-suite
+        break
+        ;;
+    4)
+        cewl
+        break
+        ;;
+    5)
+        commix
+        break
+        ;;
+    6)
+        dirbuster
+        break
+        ;;
+    7)
+        enum4linux
+        break
+        ;;
+    8)
+        gobuster
+        break
+        ;;
+    9)
+        hashcat
+        break
+        ;;
+    10)
+        hydra
+        break
+        ;;
+    11)
+        john
+        break
+        ;;
+    12)
+        metasploit-framework
+        break
+        ;;
+    13)
+        nmap
+        break
+        ;;
+    14)
+        nikto
+        break
+        ;;
+    15)
+        openvas-scanner
+        break
+        ;;
+    16)
+        sqlmap
+        break
+        ;;
+    17)
+        wifite
+        break
+        ;;
+    18)
+        exit 0
+        ;;
     *)
-      echo -e "\e[31m[!] Invalid command. Please enter a valid command."
-      ;;
-  esac
-done
+        echo "Invalid choice. Please select a number between 1 and 18."
+        ;;
+esac
