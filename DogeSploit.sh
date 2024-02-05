@@ -1,323 +1,303 @@
 #!/bin/bash
 
-# DogeSploit v1.1
-# A hacking toolbox for educational purposes only.
+# DogeSploit - Ethical Hacking Tool Box
 
-# Banner
-clear
-echo "        __            _ __  __     __  __"
-echo "  __   / /____ _____/ |\ \/ /__ / /_/ /_  _____"
-echo " / /__/ __/ _ `/ __/ __/ / / -_) __/ __/ / ___/"
-echo " \____/\__/ \_,_/\__/_/\_\__/\__/\__/ \__/  "
+# Initialize Variables
+RED='\033[0;31m'          # Red color
+GREEN='\033[0;32m'        # Green color
+YELLOW='\033[0;33m'       # Yellow color
+BLUE='\033[0;34m'         # Blue color
+MAGENTA='\033[0;35m'     # Magenta color
+RESET='\033[0m'           # Reset color
 
-# Main menu
-while true; do
-    echo ""
-    echo "[1] Cracking Tools"
-    echo "[2] RAT Tools"
-    echo "[3] Pen Test Tools"
-    echo "[4] DDoS Tools"
-    echo "[5] Phishing Tools"
-    echo "[6] Install All Programs"
-    echo "[7] Exit"
-    echo ""
-    read -p "Select a category: " choice
+# Display Welcome Message
+echo -e "${GREEN}Welcome to DogeSploit - Ethical Hacking Tool Box!${RESET}"
 
-    # Handle user input
-    case $choice in
-    1)
-        # Cracking Tools
-        echo ""
-        echo "[1] Hashcat"
-        echo "[2] John the Ripper"
-        echo "[3] Medusa"
-        echo "[4] THC Hydra"
-        echo "[5] Aircrack-ng"
-        echo "[6] Back to Main Menu"
-        echo ""
-        read -p "Select a tool: " tool
-
-        # Handle tool selection
-        case $tool in
-        1)
-            # Hashcat
-            echo ""
-            echo "Installing Hashcat..."
-            sudo apt-get install hashcat
+# Display Options
+PS3='Please select a hacking tool category: '
+options=(
+    "Cracking Tools"
+    "RAT Tools"
+    "Pen Test Tools"
+    "DDoS Tools"
+    "Phishing Tools"
+    "Exit"
+)
+select opt in "${options[@]}"; do
+    case "$opt" in
+        "Cracking Tools")
+            # Display Cracking Tools
+            PS3='Please select a cracking tool: '
+            cracking_tools=(
+                "John the Ripper"
+                "Hashcat"
+                "Cain and Abel"
+                "Ophcrack"
+                "RainbowCrack"
+                "Back to Main Menu"
+            )
+            select tool in "${cracking_tools[@]}"; do
+                case "$tool" in
+                    "John the Ripper")
+                        # Install John the Ripper
+                        sudo apt install john -y
+                        echo -e "${GREEN}John the Ripper installed successfully!${RESET}"
+                        break
+                        ;;
+                    "Hashcat")
+                        # Install Hashcat
+                        sudo apt install hashcat -y
+                        echo -e "${GREEN}Hashcat installed successfully!${RESET}"
+                        break
+                        ;;
+                    "Cain and Abel")
+                        # Install Cain and Abel
+                        sudo apt install cain-and-abel -y
+                        echo -e "${GREEN}Cain and Abel installed successfully!${RESET}"
+                        break
+                        ;;
+                    "Ophcrack")
+                        # Install OPHCrack
+                        sudo apt install ophcrack -y
+                        echo -e "${GREEN}Ophcrack installed successfully!${RESET}"
+                        break
+                        ;;
+                    "RainbowCrack")
+                        # Install RainbowCrack
+                        sudo apt install rainbowcrack -y
+                        echo -e "${GREEN}RainbowCrack installed successfully!${RESET}"
+                        break
+                        ;;
+                    "Back to Main Menu")
+                        break
+                        ;;
+                    *)
+                        echo -e "${RED}Invalid selection!${RESET}"
+                        break
+                        ;;
+                esac
+            done
             ;;
-        2)
-            # John the Ripper
-            echo ""
-            echo "Installing John the Ripper..."
-            sudo apt-get install john
+        "RAT Tools")
+            # Display RAT Tools
+            PS3='Please select a RAT tool: '
+            rat_tools=(
+                "Metasploit Framework"
+                "Covenant"
+                "Empire"
+                "DarkComet"
+                "Remnux"
+                "Back to Main Menu"
+            )
+            select tool in "${rat_tools[@]}"; do
+                case "$tool" in
+                    "Metasploit Framework")
+                        # Install Metasploit Framework
+                        sudo apt install metasploit-framework -y
+                        echo -e "${GREEN}Metasploit Framework installed successfully!${RESET}"
+                        break
+                        ;;
+                    "Covenant")
+                        # Install Covenant
+                        sudo apt install covenant -y
+                        echo -e "${GREEN}Covenant installed successfully!${RESET}"
+                        break
+                        ;;
+                    "Empire")
+                        # Install Empire
+                        sudo apt install empire -y
+                        echo -e "${GREEN}Empire installed successfully!${RESET}"
+                        break
+                        ;;
+                    "DarkComet")
+                        # Install DarkComet
+                        sudo apt install darkcomet -y
+                        echo -e "${GREEN}DarkComet installed successfully!${RESET}"
+                        break
+                        ;;
+                    "Remnux")
+                        # Install Remnux
+                        sudo apt install remnux -y
+                        echo -e "${GREEN}Remnux installed successfully!${RESET}"
+                        break
+                        ;;
+                    "Back to Main Menu")
+                        break
+                        ;;
+                    *)
+                        echo -e "${RED}Invalid selection!${RESET}"
+                        break
+                        ;;
+                esac
+            done
             ;;
-        3)
-            # Medusa
-            echo ""
-            echo "Installing Medusa..."
-            sudo apt-get install medusa
+        "Pen Test Tools")
+            PS3='Please select a Pen Test tool: '
+            pen_test_tools=(
+                "Kali Linux"
+                "Nmap"
+                "Wireshark"
+                "Burp Suite"
+                "OWASP ZAP"
+                "Back to Main Menu"
+            )
+            select tool in "${pen_test_tools[@]}"; do
+                case "$tool" in
+                    "Kali Linux")
+                        # Install Kali Linux
+                        sudo apt install kali-linux-full -y
+                        echo -e "${GREEN}Kali Linux installed successfully!${RESET}"
+                        break
+                        ;;
+                    "Nmap")
+                        # Install Nmap
+                        sudo apt install nmap -y
+                        echo -e "${GREEN}Nmap installed successfully!${RESET}"
+                        break
+                        ;;
+                    "Wireshark")
+                        # Install Wireshark
+                        sudo apt install wireshark -y
+                        echo -e "${GREEN}Wireshark installed successfully!${RESET}"
+                        break
+                        ;;
+                    "Burp Suite")
+                        # Download Burp Suite
+                        wget https://portswigger.net/burp/releases/download?product=community&version=2023.4.1&architecture=linux -O burp-suite.sh
+                        sudo bash burp-suite.sh
+                        echo -e "${GREEN}Burp Suite downloaded and installed successfully!${RESET}"
+                        break
+                        ;;
+                    "OWASP ZAP")
+                        # Install OWASP ZAP
+                        sudo apt install zaproxy -y
+                        echo -e "${GREEN}OWASP ZAP installed successfully!${RESET}"
+                        break
+                        ;;
+                    "Back to Main Menu")
+                        break
+                        ;;
+                    *)
+                        echo -e "${RED}Invalid selection!${RESET}"
+                        break
+                        ;;
+                esac
+            done
             ;;
-        4)
-            # THC Hydra
-            echo ""
-            echo "Installing THC Hydra..."
-            sudo apt-get install hydra
+        "DDoS Tools")
+            # Display DDoS Tools
+            PS3='Please select a DDoS tool: '
+            ddos_tools=(
+                "LOIC"
+                "HOIC"
+                "Slowloris"
+                "RUDY"
+                "XERXES"
+                "Back to Main Menu"
+            )
+            select tool in "${ddos_tools[@]}"; do
+                case "$tool" in
+                    "LOIC")
+                        # Install LOIC
+                        sudo apt install loic -y
+                        echo -e "${GREEN}LOIC installed successfully!${RESET}"
+                        break
+                        ;;
+                    "HOIC")
+                        # Install HOIC
+                        sudo apt install hoic -y
+                        echo -e "${GREEN}HOIC installed successfully!${RESET}"
+                        break
+                        ;;
+                    "Slowloris")
+                        # Install Slowloris
+                        sudo apt install slowloris -y
+                        echo -e "${GREEN}Slowloris installed successfully!${RESET}"
+                        break
+                        ;;
+                    "RUDY")
+                        # Install RUDY
+                        sudo apt install rudy -y
+                        echo -e "${GREEN}RUDY installed successfully!${RESET}"
+                        break
+                        ;;
+                    "XERXES")
+                        # Install XERXES
+                        sudo apt install xerxes -y
+                        echo -e "${GREEN}XERXES installed successfully!${RESET}"
+                        break
+                        ;;
+                    "Back to Main Menu")
+                        break
+                        ;;
+                    *)
+                        echo -e "${RED}Invalid selection!${RESET}"
+                        break
+                        ;;
+                esac
+            done
             ;;
-        5)
-            # Aircrack-ng
-            echo ""
-            echo "Installing Aircrack-ng..."
-            sudo apt-get install aircrack-ng
+        "Phishing Tools")
+            # Display Phishing Tools
+            PS3='Please select a Phishing tool: '
+            phishing_tools=(
+                "SocialFish"
+                "PhisherMan"
+                "ZPhisher"
+                "Weevely"
+                "EvilGinx2"
+                "Back to Main Menu"
+            )
+            select tool in "${phishing_tools[@]}"; do
+                case "$tool" in
+                    "SocialFish")
+                        # Install SocialFish
+                        sudo apt install socialfish -y
+                        echo -e "${GREEN}SocialFish installed successfully!${RESET}"
+                        break
+                        ;;
+                    "PhisherMan")
+                        # Install PhisherMan
+                        sudo apt install phisherman -y
+                        echo -e "${GREEN}PhisherMan installed successfully!${RESET}"
+                        break
+                        ;;
+                    "ZPhisher")
+                        # Install ZPhisher
+                        sudo apt install zphisher -y
+                        echo -e "${GREEN}ZPhisher installed successfully!${RESET}"
+                        break
+                        ;;
+                    "Weevely")
+                        # Install Weevely
+                        sudo apt install weevely -y
+                        echo -e "${GREEN}Weevely installed successfully!${RESET}"
+                        break
+                        ;;
+                    "EvilGinx2")
+                        # Install EvilGinx2
+                        sudo apt install evilginx2 -y
+                        echo -e "${GREEN}EvilGinx2 installed successfully!${RESET}"
+                        break
+                        ;;
+                    "Back to Main Menu")
+                        break
+                        ;;
+                    *)
+                        echo -e "${RED}Invalid selection!${RESET}"
+                        break
+                        ;;
+                esac
+            done
             ;;
-        6)
-            # Back to Main Menu
-            continue
+        "Exit")
+            echo -e "${MAGENTA}Exiting DogeSploit...${RESET}"
+            exit 0
             ;;
         *)
-            # Invalid selection
-            echo ""
-            echo "Invalid selection. Please choose a valid tool."
+            echo -e "${RED}Invalid selection!${RESET}"
+            break
             ;;
-        esac
-        ;;
-    2)
-        # RAT Tools
-        echo ""
-        echo "[1] Metasploit Framework"
-        echo "[2] Covenant"
-        echo "[3] Empire"
-        echo "[4] NanoCore"
-        echo "[5] Quasar RAT"
-        echo "[6] Back to Main Menu"
-        echo ""
-        read -p "Select a tool: " tool
-
-        # Handle tool selection
-        case $tool in
-        1)
-            # Metasploit Framework
-            echo ""
-            echo "Installing Metasploit Framework..."
-            sudo apt-get install metasploit-framework
-            ;;
-        2)
-            # Covenant
-            echo ""
-            echo "Installing Covenant..."
-            sudo apt-get install covenant
-            ;;
-        3)
-            # Empire
-            echo ""
-            echo "Installing Empire..."
-            sudo apt-get install empire
-            ;;
-        4)
-            # NanoCore
-            echo ""
-            echo "Installing NanoCore..."
-            sudo apt-get install nanocore
-            ;;
-        5)
-            # Quasar RAT
-            echo ""
-            echo "Installing Quasar RAT..."
-            sudo apt-get install qsrat
-            ;;
-        6)
-            # Back to Main Menu
-            continue
-            ;;
-        *)
-            # Invalid selection
-            echo ""
-            echo "Invalid selection. Please choose a valid tool."
-            ;;
-        esac
-        ;;
-    3)
-        # Pen Test Tools
-        echo ""
-        echo "[1] Nmap"
-        echo "[2] Wireshark"
-        echo "[3] Burp Suite"
-        echo "[4] Nessus"
-        echo "[5] Acunetix"
-        echo "[6] Back to Main Menu"
-        echo ""
-        read -p "Select a tool: " tool
-
-        # Handle tool selection
-        case $tool in
-        1)
-            # Nmap
-            echo ""
-            echo "Installing Nmap..."
-            sudo apt-get install nmap
-            ;;
-        2)
-            # Wireshark
-            echo ""
-            echo "Installing Wireshark..."
-            sudo apt-get install wireshark
-            ;;
-        3)
-            # Burp Suite
-            echo ""
-            echo "Installing Burp Suite..."
-            sudo apt-get install burpsuite
-            ;;
-        4)
-            # Nessus
-            echo ""
-            echo "Installing Nessus..."
-            sudo apt-get install nessus
-            ;;
-        5)
-            # Acunetix
-            echo ""
-            echo "Installing Acunetix..."
-            sudo apt-get install acunetix
-            ;;
-        6)
-            # Back to Main Menu
-            continue
-            ;;
-        *)
-            # Invalid selection
-            echo ""
-            echo "Invalid selection. Please choose a valid tool."
-            ;;
-        esac
-        ;;
-    4)
-        # DDoS Tools
-        echo ""
-        echo "[1] LOIC"
-        echo "[2] HOIC"
-        echo "[3] Slowloris"
-        echo "[4] RUDY"
-        echo "[5] Xerxes"
-        echo "[6] Back to Main Menu"
-        echo ""
-        read -p "Select a tool: " tool
-
-        # Handle tool selection
-        case $tool in
-        1)
-            # LOIC
-            echo ""
-            echo "Installing LOIC..."
-            sudo apt-get install loic
-            ;;
-        2)
-            # HOIC
-            echo ""
-            echo "Installing HOIC..."
-            sudo apt-get install hoic
-            ;;
-        3)
-            # Slowloris
-            echo ""
-            echo "Installing Slowloris..."
-            sudo apt-get install slowloris
-            ;;
-        4)
-            # RUDY
-            echo ""
-            echo "Installing RUDY..."
-            sudo apt-get install rudy
-            ;;
-        5)
-            # Xerxes
-            echo ""
-            echo "Installing Xerxes..."
-            sudo apt-get install xerxes
-            ;;
-        6)
-            # Back to Main Menu
-            continue
-            ;;
-        *)
-            # Invalid selection
-            echo ""
-            echo "Invalid selection. Please choose a valid tool."
-            ;;
-        esac
-        ;;
-    5)
-        # Phishing Tools
-        echo ""
-        echo "[1] Phishing Email Generator"
-        echo "[2] Social Engineering Toolkit (SET)"
-        echo "[3] Maltego"
-        echo "[4] Recon-ng"
-        echo "[5] PhishTank"
-        echo "[6] Back to Main Menu"
-        echo ""
-        read -p "Select a tool: " tool
-
-        # Handle tool selection
-        case $tool in
-        1)
-            # Phishing Email Generator
-            echo ""
-            echo "Installing Phishing Email Generator..."
-            sudo apt-get install phishing_email_generator
-            ;;
-        2)
-            # Social Engineering Toolkit (SET)
-            echo ""
-            echo "Installing Social Engineering Toolkit (SET)..."
-            sudo apt-get install set
-            ;;
-        3)
-            # Maltego
-            echo ""
-            echo "Installing Maltego..."
-            sudo apt-get install maltego
-            ;;
-        4)
-            # Recon-ng
-            echo ""
-            echo "Installing Recon-ng..."
-            sudo apt-get install recon-ng
-            ;;
-        5)
-            # PhishTank
-            echo ""
-            echo "Installing PhishTank..."
-            sudo apt-get install phishtank
-            ;;
-        6)
-            # Back to Main Menu
-            continue
-            ;;
-        *)
-            # Invalid selection
-            echo ""
-            echo "Invalid selection. Please choose a valid tool."
-            ;;
-        esac
-        ;;
-    6)
-        # Install All Programs
-        echo ""
-        echo "Installing all programs..."
-        sudo apt-get update && sudo apt-get install hashcat john medusa hydra aircrack-ng metasploit-framework covenant empire nanocore qsrat nmap wireshark burpsuite nessus acunetix loic hoic slowloris rudy xerxes phishing_email_generator set maltego recon-ng phishtank
-        echo ""
-        echo "All programs installed successfully."
-        ;;
-    7)
-        # Exit
-        echo ""
-        echo "Exiting DogeSploit..."
-        exit 0
-        ;;
-    *)
-        # Invalid selection
-        echo ""
-        echo "Invalid selection. Please choose a valid category."
-        ;;
     esac
 done
+
